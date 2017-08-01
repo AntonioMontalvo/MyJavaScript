@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="Explaining how Callback functions work in JavaScript. Basic Principles when Implementing Callback Functions. “Callback Hell” Problem And Solution">
+    <link rel="stylesheet" href="assets/textFundamentals.css">
+    <title>JavaScript Higher-order Functions, aka Callback Functions</title>
+</head>
+
+<body>
+    <h1>JavaScript Higher-order Functions, aka Callback Functions</h1>
+    <h2>First: A little background on functions and functional programming</h2>
+    <h3>Functions in JavaScript</h3>
+    <p>As you already know, in JavaScript almost everything is an Object, and of course functions are of the type Object. That means they can be stored in variables, and passed as arguments to other functions. They can be created inside functions and also returned from functions.</p>
+    <h3>Functional programming in JavaScript</h3>
+    <p>You can think functional programming as a paradigm in which functions are passed to other functions as arguments. Callback functions is a way of doing just that.</p>
+    <h2>Callback functions</h2>
+    <h3>Asynchronous Code</h3>
+    <p>With callbacks, we are addressing the Synchronicity issue where functions will be called and transmitted at the same time. A callback is asynchronous code in nature. <i>ASYNCHRONOUS: that is not occurring at predetermined or regular intervals. Data can be transmitted intermittently</i>. So different callbacks can be executed and once the callback function finishes it can transmit its result whenever it's done without waitng for other callback functions to finished.</p>
+    <h3>Dissecting how a Callback works.</h3>
+    <p>A Callback function responds to a pattern.</p>
+    <ol>
+        <li>The callback is passed to another function as a parameter</li>
+        <li>The function is called (or executed) inside the function it was passed to.</li>
+    </ol>
+    <p>When we pass the callback function as an argument to the other function, at this point, is just a definition. It is NOT! executed immediately. Later it is called back, inside the function body. This callback function because is a closure can access the containig functions variables and the variables from the global scope.</p>
+    <h2>Implementation</h2>
+    <h3>Our first Callback</h3>
+    <p>The easiest way to implement it is using <i>GlobalEventHandlers.onclick</i>. This onclick method takes a callback function as a parameter. Clicking in the button will show an alert.</p>
+    <button type="text" id="callback1">Click me to view the code</button>
+    <img id="codeImage" src="assets/codeImage.png">
+    </p>
+    <h3>A callback function can be either Named or Anonymous and you can pass arguments to the parameters of the callback function.</h3>
+    <p>An anonymous function can be defined in the parameter of the containing function, or the callback function can be named and declared, and the name passed to the function parameter. Let's take a look at the next example.</p>
+    <p>Let's go to a market and buy some fruit. By clicking in each fruit label you are using the HTML Event Mouse Event Attribute method and passing a function to it that trigger more functions as well. The result is that the total cost of the fruits you've selected is shown below.</p>
+    <section>
+        <div id="box1" class="square" data-value="1" onClick="clickedBox(this.id)">Apple $1</div>
+        <div id="box2" class="square" data-value="1" onClick="clickedBox(this.id)">Orange $1</div>
+        <div id="box3" class="square" data-value="2.99" onClick="clickedBox(this.id)">Strawberrys $2.99</div>
+        <div id="box4" class="square" data-value="1.99" onClick="clickedBox(this.id)">Grapes $1.99</div>
+    </section>
+    <div id="total">
+        <p>Your total is $: </p>
+        <div id="fruits"></div>
+    </div>
+    <p><i>The two examples above use the onclick method</i></p>
+    <h3>Now let's  Have a look at the two samples below</h3>
+    <img src="assets/twoWays.png">
+    <p>Callbacks allow the library methods to be easily customized and/or extended. Every time you need to transform your unnecessary repeated code pattern into more abstract/generic function, callbacks come to the rescue. Let's say we notice that some part of our logic is repeated in both of the functions. We know that having one and the same piece of code in different places is unnecessary and hard to maintain. </p>
+
+    <h3>It is good practice to check that callback is actually a function</h3>
+    <p>If you don't do this and the callback parameter is not, we will get an error</p>
+    <h3>You can have multiple callback functions called in a function.</h3>
+    <p>A classic example of this a jQuery AJAX function.</p>
+    <p>Click here to see a jQuery AJAX function in action <a href="">To Be Added</a></p>
+    <h2>Callbacks and the <i>this</i> Object</h2>
+    <p>Because of the particular behavior of <i>this</i>, if the call back function contains <i>this</i>, we have to use one of the two methods available to the function object. The <i>Call</i> method or the <i>Apply</i> method, otherwise the <i>this</i> object will pint to the window object in the browser or it will point to the object of the containing method.</p>
+    <p>Let's have a look at a case for <i>this</i></p>
+    <h2>Avoid callbalk hell!</h2>
+    <p>Sometimes pretty a big number level of callbacks can coexist making the code difficult to understand. The solution to this problem is to:</p>
+    <ol>
+        <li>Used named functions and pass just the name to the parameter of the function</li>
+        <li>Modulirized tour code into modules</li>
+    </ol>
+</body>
+<script src="callback.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

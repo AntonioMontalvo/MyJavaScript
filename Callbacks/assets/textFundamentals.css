@@ -1,0 +1,100 @@
+body {
+    background-color: lightgray;
+}
+
+h1 {
+    color: mintcream;
+    text-align: center;
+}
+
+h2 {
+    color: deepskyblue;
+}
+
+h3 {
+    color: dodgerblue;
+}
+
+h4 {
+    color: blue;
+}
+
+h5 {
+    color: mediumblue;
+}
+
+h6 {
+    color: navy;
+}
+
+ul {
+    color: coral;
+}
+
+li {
+    color: whitesmoke;
+}
+
+em {
+    color: peru;
+}
+
+strong {
+    color: peru;
+}
+
+p {
+    margin-left: 15px;
+    margin-right: 15px;
+    color: darkslateblue;
+}
+
+button {
+    padding: 10px 5px 10px 5px;
+    margin-left: 40%;
+    margin-right: 40%;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+img {
+    margin-top: 15px;
+    margin-left: 5%;
+    width: 90%;
+}
+
+section {
+    display: inline-flex;
+}
+
+.square {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 19%;
+    height: 40px;
+    background-color: paleturquoise;
+    border: outset;
+    border-radius: 51%;
+}
+
+
+#betterLookingTotal {
+	font-size: 28px;
+	color: royalblue;
+	font-weight: bold;
+	margin-left: 2px; 
+}
+
+#total {
+	display: flex;
+}
+
+#fruits {
+	margin-top: 6px;
+}

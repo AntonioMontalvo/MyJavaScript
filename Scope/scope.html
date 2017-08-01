@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="From the series of books 'You don't know JS', I attempt to explain in depth this 2 elusive concepts. Scope Closure. I also take a look into Hoisting">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/textFundamental.css">
+    <title>Understanding Scope and Closure.</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="Closures/closure.html" title="Understanding Closures">Understanding Closures</a></li>
+        </ul>
+    </nav>
+    <h1>Understanding Scope and Closure.</h1>
+    <h2>Introducing Scope</h2>
+    <p>The first time I've heard about <b><i>Scope</i></b> I couldn't help to make an association to the way we use it in a non-coding realm. In this context <b><i>Scope</i></b> refers mostly to the extent or range of something. Understanding <b><i>Scope</i></b> in JavasScript, requires getting to know a few related and highly theoretical concepts. We need to take a look to Compiler Theory (Engine, Compiler and Scope). Let' start by defining what Scope is.</p>
+    <h3><i>Scope</i> definition</h3>
+    <p>In his book about Scope and Closures, Kyle Simpson defines <b><i>Scope</i></b> as a set of rules that govern how the <b>Engine</b> can <b>Look Up</b> a variable by its identifier name and find it, either in the current scope or in any of the nested scopes it's contained within.</p>
+    <p>Definitely an eye opener. <b><i>Scope</i></b> is a <i>set of rules</i>. The definition also talks about the <b>Engine</b> and about <b>Look Up</b>. So we need to explore what this <b>Engine</b> is all about and what <b>Look Up</b> really means. Let's do this.</p>
+    <h3>The JavaScript Engine, Compiler and Scope</h3>
+    <h4>The Engine</h4>
+    <p>The JavaScript <b>Engine</b> is a program which executes JavaScript code. Let's also mention that there are many different engines and each one is designed to work with a different web browser, headless browser, or runtime. A good example is PhantomJS. where Node.js is an asynchronous, event-driven framework that allows you to use JavaScript on the server-side. Since they are JavaScript-driven tools, they are powered by JavaScript engines.</p>
+    <p>In the Scope definition we mentioned how the <b>Engine</b> can <b>Look Up</b> a variable. This Look Up is for one of two purposes.</p>
+    <ol>
+        <li>Assigning to variable, which is an LHS (left-hand side) reference.</li>
+        <li>Retreiving a variable's value, which is an RHS (right-hand side) reference</li>
+    </ol>
+    <p>For JavaScript the compilation occurs in microseconds, right before the code is executed. We have just introduced yet a new friend of Engine, the <b>Compiler</b>. Be patient we will start wrapping things up in a bit!</p>
+    <h4>The Compiler</h4>
+    <p>The <b>Compiler</b> handles the work of <i>Tokenizing/Lexing</i>, <i>Parsing</i> and <i>Code-Generation</i>.</p>
+    <ul>
+        <li><b><i>Tokenizing/Lexing</i></b>; That is breaking up a string of characters into meaningful tokens</li>
+        <li><b><i>Parsing</i></b>; Taking this tokens and turning into a tree of nested elements. Combining all this tokens we have a representation of the grammatical structure of the programm.</li>
+        <li><b><i>Code-Generation</i></b>; after lexing and parsing, the compiler then generates the machine instructions to create the actual variables.</li>
+    </ul>
+    <p>Now. JavaScript utilizes <b><i>Lexical Scope</i></b> as a model, that is we set the scope rules at the time and where variables and blocks of scope are authored, and thus is set in stone by the time the lexer processes the code. </p>
+    <h4>Scope</h4>
+    <p>Finally we arrived at our main subject. Based on what we just learned, the next question we must answer is this. Since <i>"we set the scope rules at the time and where variables and blocks of scope are authored"</i> What exactly makes a <b><i>scope</i></b>? The answer: <b>Functions</b>. Functions are the most common unit of scope in JavaScript. This is a short answer and as you might expect futher development around Scope from Functions is required. We will come back to this later. Let's also say that functions are not the only way to create scope. <b>Blocks</b> can do this as well. Now that we have a better understanding let's recap. Let see an example about all of this. Look at the code below.</p>
+    <img src="assets/images/scopeFromFunctions.png" alt="Basic code to explain scope from functions">
+    <ol id="explaining1">
+        <li>You may want to think about these scopes as bubbles. where the scopes are strictly nestedinside of each other so no scope from a function can exist inside other outer scope bubbles. </li>
+        <li>Engine will first look at the innermost scope, which in our code is the scope of innerScope. It will start by looking for the referenced variable a, b and c. It wont find any so it goes up one level to the next scope, in our code is the scope of outterScope and it find a, so it uses that. The same happens for b and c. Basically it will <i>look-up, that is it works its way outward/upward</i> and stop once it finds the first match.</li>
+        <li>We haven't mentioned yet, but the <b>Global Scope</b> is the "bubble" that contains all other scopes within. Here we only have one identifier in it: <b>outerScope</b>. All <b>Global Scope</b> variable are properties of the global object <i>window</i>. Also, no matter where a function is invoked from, its lexical scope is only defined where it was declared. </li>
+    </ol>
+    <h5>Engine/Scope Conversation</h5>
+    <p>The following excerpt from JDKJS is priceless; if you understand it you'll be ahead of most JavaScript developers. </p>
+    <ul id="conversation">
+        <img id="foo" src="assets/images/foo.png" alt="foo function">
+        <li><b>Engine:</b> Hey <i>Scope</i>, I have an RHS reference for <b>foo</b>, Ever heard of it?</li>
+        <li><b><i>Scope:</i></b> Why yes, I have. Compiler declared it just a second ago. It's a function. Here you go.</li>
+        <li><b>Engine:</b> Great thanks!. OK, I'm executing <b>foo</b>.</li>
+        <li><b>Engine:</b> Hey <i>Scope</i>, I've got an LHS reference for <b>a</b>, ever heard of it?</li>
+        <li><b><i>Scope:</i></b> Why yes, I have. Compiler declared it as a formal parameter to <b>foo</b> just recently. Here you go.</li>
+        <li><b>Engine:</b> Helpful as always, <i>Scope</i>. Thanks again. Now, time to assign 2 to <b>a</b>.</li>
+        <li><b>Engine:</b> Hey <i>Scope</i>, sorry to bother you again. I need an RHS look-up for <b>console</b>. Ever heard of it?</li>
+        <li><b><i>Scope:</i></b> No problem <i>Engine</i>, that is what I do all day. Yes, I've got <b>console</b>. It's built-in. Here ya go.</li>
+        <li><b>Engine:</b> Perfect. Looking up <b>log(...)</b>. OK, great, it's a function.</li>
+        <li><b>Engine:</b> Yo <i>Scope</i>. Can you help me out with a RHS reference to <b>a</b>. I think I remember it, but just want to double check.</li>
+        <li><b><i>Scope:</i></b> You're right. Engine. Same variable, hasn't changed. Here ya go.</li>
+        <li><b>Engine:</b> Cool: Passing the value of <b>a</b>, which is 2 into <b>log(...)</b>.</li>
+    </ul>
+    <h3>Scope From Functions</h3>
+    <p>We know that JavaScript has function-based scope. Cool. At this point I'd like to introduce a technique in the design of software. <b><i>The Principle of Least Privilege, also called Least Authority or Least Exposure</i></b>. This principle states that you should expose only what is minimally necessary and "hide" everything else.</p>
+    <p>A proper design would hide private details making them not accessible to any outside influence and only controlled by the function. Look at the example below and notice how the design of doSomething() keeps private details private.</p>
+    <img id="doSomething" src="assets/images/doSomething.png" alt="Code to show The Principle of Least Privilege in technique in the design of software ">
+    <h3>Introducing Function Expression</h3>
+    <p>Up until now you've been using function declarations. This functions are always invoked by calling the name of the function like : <code>doSomething(2);</code> This technique works, however in doing so the identifier name <b>foo</b> "pollutes" the enclosing scope (in this case the global scope).</p>
+    <p>A Function Expression is the JavaScript's solution where the function is wrapped in parethesis, in other words, <code>(function foo(){..})</code> means the identifier <b>foo</b> is found only in the scope where the .. indicates, not in the outer scope.</p>
+    <h4>Immediately Invoke Function Expressions</h4>
+    <p>We can execute the Function Expression like <code>(function foo(){..})();</code> The second () executes the function. The term for this pattwer is IIFE. Look at a super simple example below and in the console</p>
+    <img src="assets/images/IIFE.png" alt="an example of IIFE">
+    <h3>Scope from Blocks</h3>
+    <p>Block scoping consist in declaring variables as close as possible to where they will be used. In reality you can consider it an extension of the Principle of Least Privilege. A great example of this can be found in <b><i>try/catch</i></b> The variable declaration in the catch clause is block-scoped. Look at the example below</p>
+    <img src="assets/images/scopeBlock.png" alt="a try/catch to show block scope">
+    <p>Other examples of block-scoping are <i><b>with, let</b></i> and <b><i>const</i></b></p>
+</body>
+<script src="scope.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

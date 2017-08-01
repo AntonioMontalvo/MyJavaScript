@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="From the series of books 'You don't know JS', I attempt to explain in depth this 2 elusive concepts. Scope Closure. I also take a look into Hoisting">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/textFundamental.css">
+    <title>Understanding Closure.</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="../scope.html" title="Understanding Closures">Understanding Scope</a></li>
+        </ul>
+    </nav>
+    <h1>Understanding Closure.</h1>
+    <h2>Closure Definition</h2>
+    <p>Closure is when functions are values and can be pass around at will. This apply to the different ways in which functions can be passed around as first-class values. That is the case for <b><i>timers, event handlers, Ajax requests, crosswindow messaging, web workers, callbacks or as arguments.</i></b> Closure is when a functions can remember it lexical scope even when it's invoked ourside its lexical scope. Consider the code below.</p>
+    <img src="../assets/images/closure1.png">
+    <p>bar() has a lexical scope closure over of foo(), which keeps that scope alive for bar() to reference any time later. bar() still has a reference to that scope, and that reference is calles <b><i>closure.</i></b></p>
+    <h3>Reviewing Scope From Functions</h3>
+    <p>We know that JavaScript has function-based scope. <b><i>The Principle of Least Privilege, also called Least Authority or Least Exposure</i></b>, states that you should expose only what is minimally necessary and "hide" everything else. A proper design would hide private details making them not accessible to any outside influence and only controlled by the function.</p>
+    <p>Block scoping consist in declaring variables as close as possible to where they will be used. In reality you can consider it an extension of the Principle of Least Privilege. Other examples of block-scoping are <i><b>with, let</b></i> and <b><i>const</i></b></p>
+    <h2>Ilustrating Closure with a for loop</h2>
+    <p>Look at the code below. A simple <code>for</code> loop. Surprisingly the result is 6 printed five times. Let's analyze why. Of course what we really wanted is something different. In the code below only when the loop has ended then the callback function in the setTimeout can happen. By then the value of i is 6. What is really happening here is that i is only declared an initialize once, the loop runs on its own and then the setTimeout grabs the value of 6 from the latest iterarion and executes. All of this is because we need closure. We need to be able to declare and initialize i in each iteration so the next can get the value from the last and the setTimeout callback can run with the appropriate value. There is a couple of ways in which we can achive this.</p>
+    <img src="../assets/images/forLoop.png">
+    <h3>Using a IIFE</h3>
+    <p>We have learn in the <b><i>Scope</i></b> page that we can use IIFE to control the scope or to create scope, so in our case we can use it to create a new closure scope for each iteration. But that wouldn't be enough. We also need a variable referencing i for each new closure scope. See the code below</p>
+    <img src="../assets/images/IIFEEClosureScope.png">
+    <h3>Using let</h3>
+    <p>Remember from <b><i>Scope</i></b> that let behaves in a special way in the head of a loop. The variable will be declared not just once for the loop, but from each iteration. So a super easy solution to our original loop will look as below</p>
+    <img src="../assets/images/letLoop.png">
+</body>
+<script src="closure.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

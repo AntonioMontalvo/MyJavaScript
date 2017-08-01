@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="Here we attempt to explain what an object is, how to create one and how to use it.">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/textFundamental.css">
+    <title>Object. An introduction to the pilar of Object Oriented Programming OOP and the Document Object Model DOM.</title>
+</head>
+
+<body>
+    <h1>Unveiling Objects. Creating, extending and inheritance.</h1>
+    <h2>Introduction</h2>
+    <p>Capturing reality and expressing it in one way or another has lead to a variety of forms in which we conceptualy accept reality as a simplified abstraction of it. Software programmmers use the term Object as a mean to bring qualities of a real-world object into the realm of Programming. The Object concept is shared across several languages; for now we will focus on JavaScript only.</p>
+    <p>To understand what and object is, let's first start by looking at real world objects. Take a minute right now to observe the real-world objects that are in your immediate area. For each object that you see, ask yourself two questions: "What possible states can this object be in?" and "What possible behavior can this object perform?". As you do, you'll notice that real-world objects vary in complexity.</p>
+    <p>Let's begin our abstraction by capturing some of the characteristics found in a particular dog. Meet Thor's basic defining characteristics.</p>
+    <ul>
+        <li>Thor is a 5 years old male</li>
+        <li>Black and brown German Shepperd</li>
+        <li>Weights 75 pounds</li>
+        <li>He is very hungry</li>
+        <li>He can run</li>
+        <li>Fetch the ball</li>
+        <li>Defend</li>
+    </ul>
+    <p>Our object can capture all of this. A JavaScript object is a value in memory which is possibly referenced by an identifier. An object is a mapping between keys and values, where keys are strings (or Symbols) and values can be anything. The actions that our object can perform are expressed as functions which are regular objects with the additional capability of being callable. This functions are called methods. Methods are defined functions within an object, that is they are not executed right away just defined.</p>
+    <p>In JavaScript we have a total of 7 data types and Objects are one of this data types.</p>
+    <ul>
+        <li>Boolean</li>
+        <li>Null</li>
+        <li>Undefined</li>
+        <li>Number</li>
+        <li>String</li>
+        <li>Symbol</li>
+        <li>Object</li>
+    </ul>
+    <h2>Creating Objects</h2>
+    <p>In JavaScript we can create objects as a <i>Direct Instance</i> or by using a <i>Contructor Function</i></p>
+    <h3>Creating an object as a Direct Instance of JavaScript's built-in Object</h3>
+    <p>Imagine you have a blank canvas. It is just a white background where you can start adding your content. JavaScript provides this empty canvas for creating objects. Indeed it is a built-in object simply called <i><b>Object</b></i>. To use it you just have to instantiate it like this. Notice we use the keyword <b>new</b> to create an instance of <i><b>Object</b></i>.</p>
+    <blockquote><code>myFirstObject = new Object();</code></blockquote>
+    <p>At this point myFirstObject doesn't have any properties or methods. The code below shows how to add properties and methods. We use dot or bracket notation for that purpose. Below the image you can click on a button that will produce an alert. The callback triggered by clicking the button is a method of myFirstObject and the message shown in the alert is a text taken from the property description of the same object. Notice we use <i><b>this</b></i> to refer to myFirstObject.</p>
+    <img src="assets/images/directInstance.png" alt="An image of the code creating an object by Direct Instance of JavaScript's built-in Object">
+    <br>
+    <input id="activate" type="button" onclick="myFirstObject.activateAlert()" value="Click Here!">
+    <h3>JavaScript Object Notation (JSON)</h3>
+    <p>JSON offers another way to create an Instance of <i><b>Object</b></i>. What we have here is a subset of JavaScript where a specific syntax is used. JSON data is expressed as a sequence of <i>parameter</i> and <i>value</i> pairs. The idea behind JSON is for data to be easily transmitted across networks or between applications. In the context of data storage and transmission, we use a process called <i>serialization</i> where we convert the data and express it as a string. This JSON-encoded string is now in a better format for transmission. Once the data has been transmitted we have to reverse the process by deserializing the string object. The advantage of all of this is that it is expressed in normal JavaScript. No need for parsers or converters.</p>
+    <h4>JSON Syntax</h4>
+    <p>There are a few rules to follow</p>
+    <ul>
+        <li>Don't use any reserved JavaScript keyword</li>
+        <li>Don't start with a number</li>
+        <li>Don't use any special characters, execpt for _ $</li>
+    </ul>
+    <p>Other than that you can store <b>Number, String, Boolean, Array, null, methods and objects</b> as a value. The image below shows a JSON Object containing all Data Types mencioned before. As an exercise we will try to capture a real-life object; a guitar. As we mentioned before, we can use dot notation or bracket notation. The difference between both of them is that if the object's property contains more than one word, then we must use [brackets] to access the property's value. If the property is only one word, then its easier to use dot notation. </p>
+    <img src="assets/images/completeJSONObject.png" alt="Showing an example of a JSON object with all posible values">
+    <p>Now that we have our JSON object. Let's spend a little bit of time on it. Remember, what is great about it is that this is all JavaScript. Let's access the properties in our instrument object.</p>
+    <div id="guitarInfo">
+        <p><b>Here we have some of the properties in our instrument JSON object</b></p>
+        <ul>
+            <li id="name">I am an </li>
+            <li id="commercial">I was manufactured by: </li>
+            <li id="price">My MSRP is </li>
+            <li id="boolean">Do I love this instrument: </li>
+            <li id="material">My main construction material is </li>
+            <li id="other">Some other models available: </li>
+        </ul>
+    </div>
+    <p>Let's take a look at how we get access to the properties.</p>
+    <img src="assets/images/accessJSONProperties.png" alt="code sample showing how to access JSON properties.">
+    <h3>Data serialization</h3>
+    <p>In the previous section we mentioned how for tramission we need to convert our JSON data into a string in a process called serialization. To do that we use <b>JSON.stringify()</b>. If we covert our JSON instrument to a string the result looks like this:</p>
+    <p> This is our serialized JSON instrument:
+        <br><i id="JSONString"></i>
+        <p></p>
+        <p>As you can see this is great for transmission but horrible for humans to read. Luckily we have another method to desirialized a "stringified" JSON object back to a regular JSON object. JSON.parse(). Notice how when we parse the string, what we get back is NOT what we had before, what we have now is:</p>
+        <p><b id="JSONParse"></b></p>
+        <p>More on this later.</p>
+        <h3>Object creation using a Constructor function</h3>
+        <p>Before we saw how you can create a direct instance of <i><b>Object</b></i>. This is great for one object but, in the case where multiple instances are required, there is a better solution. We can use a <b>Contructor function</b>. A contruction function is use to create a blue print or template from which further objects can be instantiated. The way to achive this is by creating a regular named function. In its definition you can add all properties and methods you need for the <i>"template"</i>. Then to create an instance from your constructor you simply use the keyword <i><b>new</b></i> in the same way you use it before to create a direct instance. Look at the code below.</p>
+        <img src="assets/images/constructor.png" alt="constructor code">
+        <p id="album"></p>
+        <h3>Extending objects with <i><b>prototype</b></i></h3>
+        <p>Sometimes it is necessary to add properties or methods to objects that have already been instantiated. This can be done using the keyword <i><b>prototype</b></i>. Let's define a constructor function for cars. The Car contructor its originally formulated to include a car's color, year and manufacturer properties and a method to display these properties. If we instantiate this constructor, all car objects will reflect that information. But let's say later on we want to add more properties or methods to our Car contructor. We can use the <i><b>prototype</b></i> keyword for that. The code below shows the original Car contructor and the extension of the constructor with a new property and method to set up the price.</p>
+        <img src="assets/images/carConstructor.png" alt="the car constructor code">
+        <p id="centerMe!">Now lets extend the Car constructor by adding a price property and a method to display it. Enter the new price for your car in the input area and click the button to see the updatePrice function in action. Remember, our original Car constructor had no price property or a function to update and display the new price. We've added this two properties using the keyword <i><b>prototype</b>.</i> </p>
+        <div id="carMSRP">
+            <button type="button" onclick="myCar.updatePrice()">Update your car's price tag</button>
+            <input id="price_tag" type="text" value="">
+            <p id="newPrice"></p>
+        </div>
+        <img src="assets/images/extendedConstructor.png" alt="Code showing a property and method extension of the Car constructor">
+        <h3>Object inheritance with <i><b>prototype</b></i></h3>
+        <p><i><b>Inheritance</b></i>, is the capability to create one object type from another. This feature saves a lot of time as the newly created object will inherit the properties and methods of another. We can use the <b><i>prototype</i></b> keyword for this too. The process involves one constructor function and an object. For demonstration we will continue to use our Vehicle constructor. We have already created an instance named "myCar". Let's say we are involve in a new project. We are launching a new product and we realize that some of the properties from our Vehicle constructor also apply to it. This is where inheritance comes into play.</p>
+        <p>The first thing we can do is to create a new constructor with the properties that make our new product different from our Vehicle constructor. Our new line of products is for musical instruments. We've been told that our Musical Instrument constructor requires two properties that are unique. A property for materials used and a property for featured artist. Below is our Musical instrument constructor; a myInstrument instance; inheritance from Vehicle and its properties accessed by myInstrument. Don't forget to check the results in the console.</p>
+        <img src="assets/images/inherited.png" alt="Showing the code to inherit from another constructor.">
+</body>
+<script src="object.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
